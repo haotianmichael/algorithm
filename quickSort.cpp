@@ -8,7 +8,6 @@ const int N = 1e6 + 10;
 int n;
 int q[N];
 
-
 void quickSort(int q[], int l, int r) {
 
     if(l >= r)return;
