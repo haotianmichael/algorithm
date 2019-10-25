@@ -20,7 +20,7 @@ vector<int> add(vector<int> &A, vector<int> &B) {
 bool cmp(vector<int> &A, vector<int> &B) {
 
     if(A.size() != B.size()) return (A.size() > B.size());
-    for(unsigned int i = 0; i < A.size(); i++)
+    for(unsigned int i = A.size() - 1; i >= 0; i--)
         if(A[i] != B[i])
             return(A[i] > B[i]);
 
