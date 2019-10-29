@@ -2,12 +2,12 @@
 #include <algorithm>
 #include <vector>
 
+/*区间合并*/
 using namespace std;
 typedef pair<int, int> PII;
 vector<PII> segs;
 
 
-//理解
 void merge(vector<PII> &q) {
 
     vector<PII> res;
