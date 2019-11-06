@@ -14,6 +14,7 @@ void quickSort(int q[], int l, int r) {
     int x = q[l], i = l - 1, j = r + 1;
     while(i < j) {
     
+        //不能再q[i] <= x上加上等于号   
         do i++; while(q[i]<x); 
         do j--; while(q[j]>x); 
         if(i<j) swap(q[i], q[j]); 
