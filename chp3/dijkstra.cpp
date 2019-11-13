@@ -2,6 +2,7 @@
 #include <cstring>
 #include <algorithm>
 
+//可以尝试使用邻接表 来实现以下朴素版本的Dijkstra
 using namespace std;
 const int N = 510;
 int n, m;
