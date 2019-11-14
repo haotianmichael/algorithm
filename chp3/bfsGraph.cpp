@@ -31,7 +31,6 @@ int bfs() {
             } 
         }   
     }
-    
     return d[n];
 }
 
