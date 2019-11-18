@@ -3,7 +3,8 @@
 #include <cstring>
 
 using namespace std;
-const int N = 100010, M = 200010, INF = 0x3f3f3f3f; int n, m;
+const int N = 100010, M = 200010, INF = 0x3f3f3f3f; 
+int n, m;
 int p[N];
 
 struct Edge{
@@ -40,15 +41,13 @@ int kruskal() {
 }
 
 
-
-
 int 
 main(void){
 
     cin >> n >> m;
     for(int i = 0; i < m; i ++) {
         int a,b,w;
-        cin >> a>>b>>w; 
+        cin >> a >> b >> w; 
         edges[i].a = a;
         edges[i].b = b;
         edges[i].w = w;
