@@ -16,12 +16,17 @@ struct Edge{
 }edges[M];
 
 int find(int x) {
-    if(p[x] != x) p[x] = find(p[x]);
-    return p[x];
-}
+    if(p[x] != x) p[x] = find(p[x]); return p[x]; }
 
+/*
+    本质是
+    将所有有序边都遍历一遍，然后选择
+    (遍历的边数) && (是否在构造图中  是否连通)  
+*/
 int kruskal() {
     sort(edges, edges + m);
+    //注意并查集的初始化   
+    //注意理解图中 点和边的关系  点是从1开始的
     for(int i = 1; i <= n; i ++) p[i] = i;
 
     int res = 0, cnt = 0;

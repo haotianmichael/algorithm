@@ -47,15 +47,13 @@ int main()
         scanf("%d%d", &a, &b);
         add(a, b);
     }
-
     int res = 0;
-    for (int i = 1; i <= n1; i ++ )
+    for(int i = 1; i <= n1; i ++ )
     {
         memset(st, false, sizeof st);
         if (find(i)) res ++ ;
     }
 
     printf("%d\n", res);
-
     return 0;
 }
