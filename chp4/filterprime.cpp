@@ -12,7 +12,6 @@ int primes[N];
     体会数组st的使用  
     在图论算法中和数论中常见的判断数组st
 */
-
 //朴素版本
 int filter_prime_normal(int n) {
     int cnt = 0;
@@ -48,7 +47,7 @@ int filter_prime_linear(int n) {
             if(i % primes[j] == 0) break; 
         }
     }
-    return cnt ;
+    return cnt;
 }  
 
 
