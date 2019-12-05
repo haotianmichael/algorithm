@@ -17,19 +17,20 @@ int filter_prime_normal(int n) {
     int cnt = 0;
     for(int i = 2; i <= n; i++){
         if(!st[i]) primes[cnt ++] = i;
-        for(int j = i + i; j <= n; j +=i)  st[j] = true;
+        for(int j = i; j <= n; j +=i)  st[j] = true;
     }
     return cnt;
 }
 
 //对朴素版本的优化
+//从j = i开始比较好容易理解
 int filter_prime_ai(int n) {
 
     int cnt = 0;
     for(int i = 2; i <= n; i++) {
         if(!st[i]) { 
             primes[cnt ++] = i; 
-            for(int j = i + i; j <= n; j += i) st[j] = true;
+            for(int j = i; j <= n; j += i) st[j] = true;
         }
     }
     return cnt;
@@ -42,9 +43,9 @@ int filter_prime_linear(int n) {
     int cnt  = 0;
     for(int i = 2; i <= n; i ++) {
         if(!st[i])  primes[cnt++] = i;
-        for(int j = 0; primes[j] <= n/i; j ++) {
+        for(int j = 0; primes[j] <= n/i; j ++) {  //prime[j] * i <= n的意思
             st[primes[j] * i] = true;  
-            if(i % primes[j] == 0) break; 
+            if(i % primes[j] == 0) break;   //prime[cnt++] = i; 该句子的意思是到头了
         }
     }
     return cnt;

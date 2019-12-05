@@ -13,7 +13,6 @@ int qmi(int a, int b, int p) {
         b >>= 1;
     }
     return res;     
-
 }
 
 int 

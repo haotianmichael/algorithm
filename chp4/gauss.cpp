@@ -21,7 +21,7 @@ int gauss() {
 
         if(fabs(a[t][c]) < eps) continue;
 
-        //换到第一行
+        //换到第一行 列是n + 1列！！
         for(int i = c; i < n + 1; i++) swap(a[r][i], a[t][i]);
         //第一个值赋值1
         for(int i = n; i >= c; i --) a[r][i] /= a[r][c];

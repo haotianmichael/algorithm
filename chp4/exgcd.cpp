@@ -41,8 +41,9 @@ int test_exgcdII(void) {
 
         int d = exgcdII(a, m, x, y);
         if(b%d) cout << "impossible" << endl;
-        else cout << (LL)a*(b/d)%m << endl;
+        else cout << (LL)x*(b/d)%m << endl;
 
+    }
     return 0;
 }
 
