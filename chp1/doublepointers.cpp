@@ -27,10 +27,34 @@ void printfword(string s) {
         while(j < i && s[j] != ' ') j ++;
         for(unsigned int k = 0; k < j; k ++) cout << s[k]; 
         cout << endl; 
+        i = j;
     }
 
     return ;
 }
+
+//注意思路的培养
+void subsequenceII() {
+
+    const int N = 100010;
+    int a[N], s[N];
+    int n;
+    cin >> n;
+    for(int i = 0; i< n; i ++) cin >> a[i];
+
+    int res = 0;
+    for(int i = 0, j = 0; i  < n; ++ i){
+        s[a[i]] ++;
+        while (s[a[i]] > 1) {
+            s[a[j]] --;
+            j ++; 
+        }        
+        res = max(res, i - j + 1);
+    }  
+    cout << res << endl;
+    return;
+}
+
 
 //最长不重复子序列
 void  subsequence(vector<int> &q) {
