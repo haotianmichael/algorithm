@@ -3,9 +3,8 @@ using namespace std;
 
 /*
  *  前缀和和差分是一对逆运算 
- *  体会两者的联系和区别
+ *  理解两者的联系和区别
 */
-
 const int N = 1e6 + 10;
 int a[N], b[N];
 int c[N][N], s[N][N];
@@ -116,6 +115,7 @@ Matrix_main(void) {
         insert_Matrix(x1, y1, x2, y2, c); 
     }
 
+    
     //这里是利用s来存储前缀和数组  而不是直接求该数组的前缀和数组 注意区别
     // b[i] += b[i+1] 
     for(int i = 1; i <= n; i ++)
