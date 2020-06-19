@@ -1,4 +1,4 @@
-            /*蛇形矩阵*/
+/*蛇形矩阵*/
 #include <iostream>
 #include <algorithm>
 #include <cstring>
