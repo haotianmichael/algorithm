@@ -9,6 +9,7 @@ int f[N][M];
 
 /*动态规划
   f[i][j]存的是次数
+  O(n^2m)
  */
 int DP1(void)
 {
@@ -31,6 +32,11 @@ int DP1(void)
 
 
 
+/*
+   动态规划
+   f[i][j]存的是长度
+   O(nm) 
+ */
 int DP2(void) {
 
     while(cin >> n >> m){
