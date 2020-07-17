@@ -32,3 +32,22 @@ template<typename  T>class Blob{
         //若data[i]无效   则抛出msg
         void check(size_type i, const std::string &msg) const;
 };
+
+
+
+template <typename elemType> class ListItem;
+template <typename elemType> class List{
+
+    public:
+        List<elemType>();
+        List<elemType>(const List<elemType> &);
+        List<elemType>& operator=(const List<elemType> &);
+        ~List();
+        void inset(ListItem<elemType> *ptr, elemType value);
+
+    private:
+        ListItem<elemType> *front, *end;
+
+
+
+};
