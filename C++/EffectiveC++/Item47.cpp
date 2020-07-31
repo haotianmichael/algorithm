@@ -7,7 +7,7 @@ Item47:   Traits 机制
     
     在编译期利用overloading 技术 确定迭代器的类型
 
-    这里的迭代器和iterator_traits都是用户自定义   正式版本STL使用std::中
+    这里的迭代器和iterator_traits都是用户自定义   正式版本STL使用std::
 */
 
 
