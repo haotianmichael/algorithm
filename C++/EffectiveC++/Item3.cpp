@@ -24,7 +24,26 @@ Item3:  尽可能使用const
 
 using namespace std;
 
-/********************1.测试const迭代器****************************/
+/********************1.测试内置类型****************************/
+static void Test_Built_in() {
+
+    //注意char p*  和char p[]的区别:  不管是char* 还是char []作为形式参数 实参只能是char [] (见4.Test_TestBook_Char)
+    char p[] = "haotian";  
+    char *ps = p;   // non-const pointer,  non-const data
+    const char* cps = p;    // non-const pointer, const data
+    char* const pcs = p;   // const pointer,  non-const data
+    const char* const pscs = p;   //const pointer, const data
+
+    ps++;
+    cps++;
+    //cps[4] = 'h';
+    
+    return;
+}
+
+
+
+/********************2.测试const迭代器****************************/
 static void Test_Iterator() {
 
     /*const迭代器*/
@@ -41,7 +60,7 @@ static void Test_Iterator() {
 }
 
 
-/********************2.测试const-nonconst成员函数重载****************************/
+/********************3.测试const-nonconst成员函数重载****************************/
 
 class TestBook
 {
@@ -74,7 +93,7 @@ static void Test_TestBook() {
 
     /*const成员函数*/
     TestBook tb("haotian");
-    const TestBook ctb(string("is a good man"));
+    const TestBook ctb(string("is  good"));
 
     tb[4] = 's';
     //ctb[4] = 's';
@@ -89,13 +108,14 @@ static void Test_TestBook() {
 
 
 
-/********************3.测试bitwise const && logical const***************************/
+/********************4.测试bitwise constness***************************/
+    /*bitwise const指 const成员函数不可以更改对象内任何non-static成员变量*/
 class TestBook_Char
 {
     public:
         TestBook_Char (char *text) : pText(text) {}
 
-        char &operator[] (size_t position) const{  //这里是bitwise const声明 但是返回值却为char(可进一步修改data member)
+        char &operator[] (size_t position) const{  //这里是bitwise constness声明 但是返回值却为char(可进一步修改data member)
             return pText[position];
         }
 
@@ -111,9 +131,9 @@ class TestBook_Char
 
 static void Test_TestBook_Char() {
 
-    char array[] = "haotian";  //对于char* 的声明用法
+    char array[] = "haotian";  
     const TestBook_Char tbc(array);
-    tbc[0] = 'J';  //指针的bitwise const 性质--->  所指内容被修改
+    tbc[0] = 'J';  //指针的bitwise constness 性质--->  所指内容被修改
 
     return;
 }
@@ -121,11 +141,48 @@ static void Test_TestBook_Char() {
 
 
 
+/********************5.测试logical constness***************************/
+    /*mutable释放掉non-static成员变量的bitwise constness约束*/
+class CTextBook
+{
+public:
+    CTextBook (char *text) : pText(text) {}
+    size_t length() const;
+
+private:
+    char* pText;
+    mutable size_t textLength;
+    mutable bool lengthIsValid;
+};
+
+
+std::size_t CTextBook::length() const {
+
+    if(!lengthIsValid) {
+        textLength = std::strlen(pText);  
+        lengthIsValid = true;
+    }
+
+    return textLength;
+}
+
+static void Test_CTextBook() {
+
+    char array[] = "haotian";
+    const CTextBook ctb(array);
+    cout << ctb.length() << endl;
+    return;
+}
+
+
+/********************6.测试***************************/
+
 int main(void)
 {
 
     Test_TestBook();
     Test_TestBook_Char();
+    Test_CTextBook();
     Test_Iterator();
 
     return 0;
