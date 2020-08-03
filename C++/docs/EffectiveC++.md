@@ -12,13 +12,13 @@
 
 ## Index
 
-- [[Item1](../Src/EffectiveC++/Item1.cpp)]: 视`C++`为一个语言联邦
-- [[Item2](../Src/EffectiveC++/Item2.cpp)]: 尽量以`const`,`enum`, `inline`替换`#define`
-- [[Item3](../Src/EffectiveC++/Item3.cpp)]: 尽可能使用`const`
+- [[Item1](../src/EffectiveC++/Item1.cpp)]: 视`C++`为一个语言联邦
+- [[Item2](../src/EffectiveC++/Item2.cpp)]: 尽量以`const`,`enum`, `inline`替换`#define`
+- [[Item3](../src/EffectiveC++/Item3.cpp)]: 尽可能使用`const`
 -  
 
 
 
-- [[Item47](../Src/EffectiveC++/Item47.cpp)]: 请使用`traits classes`表现类型信息
+- [[Item47](../src/EffectiveC++/Item47.cpp)]: 请使用`traits classes`表现类型信息
 -  
 
