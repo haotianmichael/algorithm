@@ -36,8 +36,8 @@ static void Test_Built_in() {
 
     ps++;
     cps++;
-    //cps[4] = 'h';
-    
+    pcs[1] = 'h';
+    ps = const_cast<char *>(pscs);    
     return;
 }
 
@@ -175,7 +175,48 @@ static void Test_CTextBook() {
 }
 
 
-/********************6.测试***************************/
+/********************6.测试常量性转除***************************/
+class TextBook
+{
+public:
+    TextBook (char *s): pText(s) {}
+    const char& operator[](std::size_t position) const{
+        return pText[position];    
+    }
+
+
+    //casting away constness 常量性转除
+    /*
+        令non-const operator[]  调用 const 是一个避免代码重复的安全做法 
+        期间有两次转型
+     */
+    char& operator[](std::size_t position) {
+        return const_cast<char&>(
+               static_cast<const TextBook&>
+               (*this)[position]
+                );
+    }
+
+private:
+    char *pText;
+    
+};
+
+static void Test_TextBook() {
+
+    /*const成员函数*/
+    char array[] = "haotian";
+    TextBook tb(array);
+    const TextBook ctb(array);
+
+    tb[4] = 's';
+    //ctb[4] = 's';
+
+    return;
+}
+
+
+
 
 int main(void)
 {
@@ -184,6 +225,7 @@ int main(void)
     Test_TestBook_Char();
     Test_CTextBook();
     Test_Iterator();
+    Test_TextBook();
 
     return 0;
 }
