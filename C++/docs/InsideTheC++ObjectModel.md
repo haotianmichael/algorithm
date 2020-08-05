@@ -8,5 +8,6 @@
 
 ## Index
 
+* [[对象模型语意学](../src/InsideTheC++ObjectModel/object.cpp)]
 * [[Data语意学](../src/InsideTheC++ObjectModel/data.cpp)]
 
