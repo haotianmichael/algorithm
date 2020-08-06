@@ -77,10 +77,10 @@ template<class class_type,
             data_type2 class_type::*mem2) {
 
         assert(mem1 != mem2);
-        return 
-            mem1 < mem2 
-            ? "member 1 occurs first" 
-            : "member 2 occurs first";
+        //return 
+            //mem1 < mem2 
+            //? "member 1 occurs first" 
+            //: "member 2 occurs first";
     }
 class layout{
 
@@ -101,15 +101,49 @@ static void Test_MemLayout() {
 }
 
 
+/* 
+    4. 指向data member的指针 
+
+        两种指针类型:
+        float Pointer_toD::* 表示取nonstatic data member的地址，得到其在class中的偏移值
+        float* 表示取绑定于真正的class object身上的data member的地址，得到该data member在内存中的真正地址
+ 
+*/
+class Pointer_toD{
+    public:
+        virtual ~Pointer_toD(){}
+
+        float x, y, z;
+};
 
 
+static void Test_Pointer_toD() {
+    
+    printf("&Pointer_toD::x = %p\n", &Pointer_toD::x);
+    printf("&Pointer_toD::y = %p\n", &Pointer_toD::y);
+    printf("&Pointer_toD::z = %p\n", &Pointer_toD::z);
+
+
+    float Pointer_toD::*p = 0;
+    Pointer_toD ptd;
+    cout << "the size of float Pointer::x*is: " << sizeof(p) << endl;
+    cout << "the size of float is: " << sizeof(float) << endl;
+    cout << "the size of Pointer_toD is: " << sizeof(ptd) << endl;
+    printf("the address of ptd is %p\n", &ptd);
+    printf("the address of x is: %p\n", &ptd.x);
+    printf("the address of y is: %p\n", &ptd.y);
+    printf("the address of z is: %p\n", &ptd.z);
+
+    return;
+}
 
 
 int main(void)
 {
-    cout << sizeof(int*) << endl;
+    //cout << sizeof(int*) << endl;
     //Test_Virtual();
     //TestPoint3d();
-    Test_MemLayout();
+    //Test_MemLayout();
+    Test_Pointer_toD();
     return 0;
 }
