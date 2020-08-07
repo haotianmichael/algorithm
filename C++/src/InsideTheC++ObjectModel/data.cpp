@@ -3,7 +3,16 @@
 
 using namespace std;
 
-
+/*
+    chp3. Data语意学 
+    一个class的data member表现了这个class在程序执行时的某种状态
+    绑定
+    布局
+    存取
+    继承
+    效率
+    指针 
+ */
 
 /*
    1. 虚拟继承的对象模型 
@@ -26,6 +35,7 @@ static void Test_Virtual(){
 
 /*
    2. Data Member的绑定
+    更像一个历史遗留问题……在extern和嵌套式类型声明之间的非直觉绑定操作还是会发生
     a. 对于inline function躯体内的data member绑定操作，是在整个class声明完后才发生的-------> 因此length是double
     b. 而对于member function的argument list的绑定操作，还是会在它们第一次遭遇时候被resolve的------>因此length是int
 
@@ -78,7 +88,7 @@ template<class class_type,
 
         assert(mem1 != mem2);
         //return 
-            //mem1 < mem2 
+            //mem1 < mem2   //LLVM并未重载class member pointer的<运算符 测试失败……
             //? "member 1 occurs first" 
             //: "member 2 occurs first";
     }
@@ -101,13 +111,38 @@ static void Test_MemLayout() {
 }
 
 
+/*
+    4. Data Member的存取
+        static member不管是何种继承手段，都只存在一个实例于程序的data segment中(通过对象和指针存取该类型的member结论相同)
+        non-static member存放在每一个class object中，存取操作需要编译器将  class object起始地址+data member偏移量(通过对象和指针存取该类型的member可能结论不同)
+            (单一类，派生自单一或多重继承串链):每一个non-static data member的偏移位置在编译期即可获取
+            (继承自virtual base class): 用指针存取便无法获知偏移量，运行期
+        总结：对于non-static member的存取需要知道offset, 但区别于编译期和运行期的效率
+
+*/
+class Point{
+    public:
+        int x;
+};
+class Point_Derived : public virtual Point{
+
+};
+
+static void Test_Point() {
+
+    Point_Derived origin;
+    Point *ppd = &origin;
+    origin.x = 4;  //直接使用对象便在编译期确定offset
+    ppd->x = 4;  //运行期确定offset
+}
+
+
 /* 
     4. 指向data member的指针 
 
         两种指针类型:
         float Pointer_toD::* 表示取nonstatic data member的地址，得到其在class中的偏移值
         float* 表示取绑定于真正的class object身上的data member的地址，得到该data member在内存中的真正地址
- 
 */
 class Pointer_toD{
     public:
