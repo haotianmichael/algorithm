@@ -111,6 +111,11 @@ static void Test_MemLayout() {
 */
 class Pointer_toD{
     public:
+        /*
+            将虚函数注释掉之后，各个data member的offset为0, 4, 8
+            在由vptr及其他virtual机制支持下，各个data member的offset为8, 12, 16
+            说明其vptr被编译器放在了最开头
+         */
         virtual ~Pointer_toD(){}
 
         float x, y, z;
@@ -137,6 +142,41 @@ static void Test_Pointer_toD() {
     return;
 }
 
+/*
+    5.data member指针多态
+        在多重继承下，将第二个(或后继)base class的指针，和一个"与derived class object绑定"的member结合起来
+
+        编译器自行修改offset来实现多态之间的转换
+            
+*/
+struct Base1{int val1 = 0;};
+struct Base2{int val2 = 0;};
+struct Derived : Base1, Base2{ };
+
+void func1(int Derived::*dmp, Derived* pd) {
+    cout << "the value of dmp is: " << dmp << endl;
+    pd->*dmp = 2;
+}
+
+void func2(Derived* pd) {
+    int Base2::*bmp = &Base2::val2;  
+    cout << "the value of bmp is: " << bmp << endl;
+    func1(bmp, pd);
+}
+
+static void Test_Base() {
+
+    Derived der;
+    func2(&der);
+    printf("the offset of Derived::val1 is %p\n", &Derived::val1);
+    printf("the offset of Derived::val2 is %p\n", &Derived::val2);
+    printf("the offset of Base1::val1 is %p\n", &Base1::val1);
+    printf("the offset of Base2::val2 is %p\n", &Base2::val2);
+    cout << der.Base2::val2 << endl;
+    cout << der.Base1::val1 << endl;
+    return;
+}
+
 
 int main(void)
 {
@@ -144,6 +184,7 @@ int main(void)
     //Test_Virtual();
     //TestPoint3d();
     //Test_MemLayout();
-    Test_Pointer_toD();
+    //Test_Pointer_toD();
+    Test_Base();
     return 0;
 }
