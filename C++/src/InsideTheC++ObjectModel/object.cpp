@@ -3,6 +3,7 @@
 using namespace std;
 
 
+/*  chp1. 对象模型初探*/
 /*
     1. 对象模型的内存大小 
         a. 其nonstatic data member的总和大小

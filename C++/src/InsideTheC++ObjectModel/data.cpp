@@ -136,9 +136,16 @@ static void Test_Point() {
     ppd->x = 4;  //运行期确定offset
 }
 
+/*
+    5. Data Member与“继承” 
+ 
+*/
+
+
+
 
 /* 
-    4. 指向data member的指针 
+    6. 指向data member的指针 
 
         两种指针类型:
         float Pointer_toD::* 表示取nonstatic data member的地址，得到其在class中的偏移值
@@ -178,7 +185,7 @@ static void Test_Pointer_toD() {
 }
 
 /*
-    5.data member指针多态
+    7.data member指针多态
         在多重继承下，将第二个(或后继)base class的指针，和一个"与derived class object绑定"的member结合起来
 
         编译器自行修改offset来实现多态之间的转换
