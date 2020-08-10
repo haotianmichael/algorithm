@@ -116,7 +116,7 @@ static void Test_MemLayout() {
         static member不管是何种继承手段，都只存在一个实例于程序的data segment中(通过对象和指针存取该类型的member结论相同)
         non-static member存放在每一个class object中，存取操作需要编译器将  class object起始地址+data member偏移量(通过对象和指针存取该类型的member可能结论不同)
             (单一类，派生自单一或多重继承串链):每一个non-static data member的偏移位置在编译期即可获取
-            (继承自virtual base class): 用指针存取便无法获知偏移量，运行期(区别于virtual function机制，data member只的多态形式只存在virtual base class)
+            (继承自virtual base class): 用指针存取便无法获知偏移量，运行期(区别于virtual function机制，data member的多态形式只存在virtual base class)
         总结：对于non-static member的存取需要知道offset, 但区别于编译期和运行期的效率
 
 */
@@ -144,7 +144,7 @@ static void Test_Point() {
     总结:多态的必要条件是指针和virtual,而对于data member来说便有以下几种情况:
     a. Base指针的行为一定不会导致data member的多态行为
         Base *bp = base(); 
-        Base *bp = derived();
+        Base *bp = derived();   //只能导致由virtual function引发的多态
     b. Derived指针的行为可能会导致data member的多态行为
         Derived *dp = derived();
 
