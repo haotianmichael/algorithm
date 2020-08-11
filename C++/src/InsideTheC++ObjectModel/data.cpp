@@ -142,15 +142,34 @@ static void Test_Point() {
        Derived指针只能指向Derived对象
 
     总结:多态的必要条件是指针和virtual,而对于data member来说便有以下几种情况:
-    a. Base指针的行为一定不会导致data member的多态行为
-        Base *bp = base(); 
-        Base *bp = derived();   //只能导致由virtual function引发的多态
-    b. Derived指针的行为可能会导致data member的多态行为
+    a. Base指针的行为可能导致的data member多态行为
+        Base *bp = base();   // virtual base class(data多态)
+        Base *bp = derived();   //只能导致由virtual function引发的多态(函数多态)
+    b. Derived指针的行为可能会导致的data member多态行为
         Derived *dp = derived();
 
+
+   ************注意Base *bp = derived();  其实多态只存在于这种情况，将derived object对象转化为一个Base类型,而其本质就是重新确定指针的起始地址和所指的大小范围
+
+
+    "单一继承无virtual function"
+        每个object对象模型中只有non-static data member，所以对于其存取也就是 起始地址+其offset
+
+    "单一继承有virtual function"
+        每个object对象模型中有non-static data member+vptr，影响offset的计算
+            当base class中存在virtual function的时候，复合“自然多态”
+            当base class中不存在virtual function，而derived class中存在virtual function的时候，需要重新计算offset
+
+    "多重继承"
+        和多个base class的地址统一与上述类似
+
+    “虚拟继承”
+        class如果内含virtual base class，将被分为两半：“不变区域”和“共享区域”；"不变区域"从起始地址开始，而“共享区域”地址被放在vtbl中，由vptr去索引
+        不像前几个其offset都是在编译期就计算好了，但这里需要指针间接导引一次所以会变慢
+ 
+    最终其实虚拟基类最好不要有data members
+
 */
-
-
 
 
 
