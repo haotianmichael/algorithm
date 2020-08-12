@@ -15,9 +15,6 @@ using namespace std;
 
  */
 
-
-
-
 /*
    1. non-static 被内化成为non-member的形式
         Point3d  Point3d::magnitude()----------->Point3d  Point3d::magnitude(Point3d *const this);

@@ -13,3 +13,4 @@
 
 * [[Function语意学](../src/InsideTheC++ObjectModel/function.cpp)]
 
+* [[构造-析构-拷贝语意学](../src/InsideTheC++ObjectModel/ctordtor.cpp)]
