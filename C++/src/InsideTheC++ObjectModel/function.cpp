@@ -78,27 +78,3 @@ static void Test_Point3d() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
