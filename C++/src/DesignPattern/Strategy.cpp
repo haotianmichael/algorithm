@@ -86,7 +86,7 @@ class DETax : public TaxStrategy{
 //扩展-遵循了开放封闭原则
 class FRTax : public TaxStrategy{
     public:
-        virtual doble calclate(const Context& context) {
+        virtual double calclate(const Context& context) {
             //重写
             return 0; 
         }
