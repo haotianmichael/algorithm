@@ -72,7 +72,7 @@
 
 ### 组件协作
 
-> 现代软件专业化分工之后的第一个结果是“**框架与应用程序的划分**”，“组件协作”通过**晚期绑定**，来实现框架与应用之间的**松耦合**，是二者之间协作时候常用的模式
+> 现代软件专业化分工之后的第一个结果是“**框架与应用程序的划分**”，“组件协作”通过**晚期绑定**，来实现框架与应用之间的**松耦合**，是二者之间协作时候常用的模式。
 
 * [Template Method](../src/DesignPattern/TemplateMethod.cpp)
 * [Strategy](../src/DesignPattern/Strategy.cpp)
@@ -80,44 +80,44 @@
 
 ### 单一职责
 
-* Decorator
-* Bridge
+* [Decorator](../src/DesignPattern/Decorator.cpp)
+* [Bridge](../src/DesignPattern/Bridge.cpp)
 
 ### 对象创建
 
-* Factory Method
-* Abstract Factory
-* Prototype
-* Builder
+* [Factory Method](../src/DesignPattern/FactoryMethod.cpp)
+* [Abstract Factory](../src/DesignPattern/AbstractFactory.cpp)
+* [Prototype](../src/DesignPattern/Prototype.cpp)
+* [Builder](../src/DesignPattern/Builder.cpp)
 
 ### 对象性能
 
-* Singleton
-* Flyweight
+* [Singleton](../src/DesignPattern/Singleton.cpp)
+* [Flyweight](../src/DesignPattern/Flyweight.cpp)
 
 ### 接口隔离
 
-* Facade
-* Proxy
-* Mediator
-* Adapter
+* [Facade](../src/DesignPattern/Facade.cpp)
+* [Proxy](../src/DesignPattern/Proxy.cpp)
+* [Mediator](../src/DesignPattern/Mediator.cpp)
+* [Adapter](../src/DesignPattern/Adapter.cpp)
 
 ### 状态变化
 
-* Memento
-* State
+* [Memento](../src/DesignPattern/Memento.cpp)
+* [State](../src/DesignPattern/State.cpp)
 
 ### 数据结构
 
-* Composite
-* Iterator
-* Chain of Resposibility
+* [Composite](../src/DesignPattern/Composite.cpp)
+* [Iterator](../src/DesignPattern/Iterator.cpp)
+* [Chain of Resposibility](../src/DesignPattern/ChainOfResponsibility.cpp)
 
 ### 行为变化
 
-* Command
-* Visitor
+* [Command](../src/DesignPattern/Command.cpp)
+* [Visitor](../src/DesignPattern/Visitor.cpp)
 
 ### 领域问题
 
-* Interpreter
+* [Interpreter](../src/DesignPattern/Interpreter.cpp)

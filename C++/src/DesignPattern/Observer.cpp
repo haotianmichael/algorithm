@@ -241,8 +241,7 @@ class MainForm_multi : public Form_new, public IProgress{
     
         FileSplitter_multi splitter(filepath, number);   //多通知机制
 
-        //添加多种通知
-        splitter.addProgress(this);
+        splitter.addProgress(this);  //订阅通知
         splitter.addProgress(cn);
 
         splitter.split();
