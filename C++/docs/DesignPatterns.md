@@ -87,6 +87,8 @@
 
 ### 对象创建
 
+> 通过”对象创建“模式绕开`new`，来避免对象创建(new)过程中所导致的**紧耦合**（依赖具体类），从而支持对象创建的稳定。它是接口抽象之后的第一步工作。
+
 * [Factory Method](../src/DesignPattern/FactoryMethod.cpp)
 * [Abstract Factory](../src/DesignPattern/AbstractFactory.cpp)
 * [Prototype](../src/DesignPattern/Prototype.cpp)
