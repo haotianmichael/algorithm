@@ -100,7 +100,7 @@ class SalesOrder_new {
             后续的工厂模式的构造函数
             返回堆对象
             SalesOrder_new(SrategyFactory* startegyfactory) {
-                this->startegy = strategyfactor->NewStartegy(); 
+                this->startegy = strategyfactor->CreateStartegy(); 
             } 
         */
         SalesOrder_new() {
