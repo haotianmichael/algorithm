@@ -96,6 +96,8 @@
 
 ### 对象性能
 
+> 面向对象很好的解决了“抽象”的问题，但是必不可免的付出一定的代价。对于通常情况来讲，面向对象的成本大都可以忽略不计。但是某些情况下，面向对象所带来的的成本必须严谨对待。
+
 * [Singleton](../src/DesignPattern/Singleton.cpp)
 * [Flyweight](../src/DesignPattern/Flyweight.cpp)
 
