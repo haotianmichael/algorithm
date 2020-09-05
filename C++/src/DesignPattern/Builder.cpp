@@ -66,8 +66,11 @@ int main_old() {
 定义: 
     讲一个复杂对象的构建与其表示相分离，使得同样的构建过程（稳定）可以创建不同的表示(变化).
 */
+ //对象的表示
 class House_new{};
-class HouseBuilder{
+//对象的构建
+//表示和构建两者为友元关系或者指针成员，使得两者可以互相访问 
+class HouseBuilder{  
     public:
         House_new* GetResult() {
             return pHouse; 
@@ -80,10 +83,40 @@ class HouseBuilder{
         virtual void BuildPart4() = 0;
         virtual void BuildPart5() = 0;
 };
+class StoneHouse_new : public House_new{
+
+    protected:
+        virtual void BuildPart1() {
+        }
+
+        virtual void BuildPart2() {
+        }
+
+        virtual bool BuildPart3() {
+
+            return false;
+        }
+
+        virtual void BuildPart4() {
+        }
+
+        virtual void BuildPart5() {
+        
+        }
+};
+
+class StoneHouseBuilder : public HouseBuilder{
+
+};
+//稳定部分
 class HouseDirector{
     public:
         HouseBuilder* pHouseBuilder;
         
+        //构造函数负责构造
+        HouseDirector(HouseBuilder* hb): pHouseBuilder(hb) {
+
+        }
         House_new* Construct() {
             pHouseBuilder->BuildPart1();
 
@@ -102,12 +135,19 @@ class HouseDirector{
         }
 
 };
+int main_new() {
 
+    
 
-
-
+    return 0;
+}
 
 /*
 总结: 
- 
+    Builder模式主要用于“分步骤构建一个复杂的对象”。在这其中“分步骤”是一个稳定的算法，而复杂对象的各个部分则经常变化。
+        
+    变化点在哪里，封装哪里——Builder模式主要在于应对“复杂对象各个部分”的平凡需求变动。其缺点在于难以应对“分步骤构建算法”的
+    需求变动。
+
+    在Builder模式中，要注意不同语言中构造器内调用虚函数的差别。
 */
