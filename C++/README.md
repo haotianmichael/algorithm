@@ -12,7 +12,7 @@
 
 
 
-# [3. C++ConCurrency并发编程](docs/C++ConCurrency.md)
+# [3. 并发编程](docs/C++ConCurrency.md)
 
 
 
