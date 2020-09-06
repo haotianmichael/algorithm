@@ -6,3 +6,5 @@
 
 * [[thread_data_sharing.cpp](../src/C++ConCurrency/thread_data_sharing.cpp)]
 
+* [[thread_mutex.cpp](../src/C++ConCurrency/thread_mutex.cpp)]
+

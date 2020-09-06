@@ -103,6 +103,8 @@
 
 ### 接口隔离
 
+> 在组件构建过程中，某些接口之间直接的依赖常常会带来很多问题，甚至根本无法实现。采用添加一层间接（稳定）接口，来隔离本来互相紧密关联的接口是一种常见的解决方案。
+
 * [Facade](../src/DesignPattern/Facade.cpp)
 * [Proxy](../src/DesignPattern/Proxy.cpp)
 * [Mediator](../src/DesignPattern/Mediator.cpp)
