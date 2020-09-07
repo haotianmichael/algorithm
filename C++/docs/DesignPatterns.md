@@ -119,6 +119,8 @@
 
 ### 数据结构
 
+>常常有一些组件在内部具有特定的数据结构，如果让客户依赖这些特定的数据结构，将极大的破坏组件的复用。这时候，将这些特定的数据结构封装在内部，在外部提供统一的接口，来实现与特定数据结构无关的访问，是一种行之有效的解决方案。
+
 * [Composite](../src/DesignPattern/Composite.cpp)
 * [Iterator](../src/DesignPattern/Iterator.cpp)
 * [Chain of Resposibility](../src/DesignPattern/ChainOfResponsibility.cpp)

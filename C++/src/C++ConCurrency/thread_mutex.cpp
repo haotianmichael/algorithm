@@ -82,7 +82,7 @@ class Game{
                 my_mutex_a.unlock();  //一定要注意是在返回值之前解锁
                 my_mutex_b.unlock();
                 return true;    
-           }else {
+           }else{
                  my_mutex_a.unlock();
                  my_mutex_b.unlock();
                  return false; 
@@ -94,7 +94,7 @@ class Game{
                bool result = outMsgLULProc();
                if(!result){
                     cout << "Queue Empty Now!" << endl; 
-                }
+               }
             }
             return;    
         }
