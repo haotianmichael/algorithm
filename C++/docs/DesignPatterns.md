@@ -112,6 +112,8 @@
 
 ### 状态变化
 
+> 在组件构建过程中，某些对象的状态经常发生变化，如何应对这些变化进行有效的管理？同时又维持高层模块的稳定？“状态变化”模式为这一问题提供了一种解=决方案。
+
 * [Memento](../src/DesignPattern/Memento.cpp)
 * [State](../src/DesignPattern/State.cpp)
 
