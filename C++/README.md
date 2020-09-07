@@ -4,23 +4,21 @@
 
 
 
-
-
 # [2. 深度探索C++对象模型](docs/InsideTheC++ObjectModel.md)
 
 
 
-
-
-# [3. 并发编程](docs/C++ConCurrency.md)
-
-
-
-# [4. 设计模式](docs/DesignPatterns.md)
+#  [3. 缓存技术](docs/Cache.md)  
 
 
 
+# [4. 并发编程](docs/C++ConCurrency.md)
 
 
-# [5. 项目构建](docs/MakeBuild.md)
+
+# [5. 设计模式](docs/DesignPatterns.md)
+
+
+
+# [6. 项目构建](docs/MakeBuild.md)
 
