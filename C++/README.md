@@ -8,7 +8,7 @@
 
 
 
-#  [3. 缓存技术](docs/Cache.md)  
+#  [3. 高速缓存技术](docs/Cache.md)  
 
 
 
