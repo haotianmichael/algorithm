@@ -33,6 +33,7 @@ using namespace std;
             初始化了一个没有加锁的mutex，可以配合unique_lock的成员函数
 
     3. unique_lock的成员函数
+        unique_lock绑定mutex,并管理该mutex
         3.1 lock()
            加锁，不需要担心手动解锁问题
 
@@ -52,10 +53,12 @@ using namespace std;
             sp.unlock();
 
     4. unique_lock所有权的传递
-            
+            std::unique_lock<std::mutex> sg(my_mutex);
+            sg拥有my_mutex的所有权
+            sg对象可以将my_mutex的所有权可以转移给sgg，但是不能复制
+            std::unique_lock<std::mutex>  ssg(std::move(sg));  //所有权转移，和unique_ptr独占类型智能指针类似
 
-
-
+            在函数中return一个局部unique_lock变量，发生移动构造函数(和unique_ptr类似)
 */
 
 class Game_new{
