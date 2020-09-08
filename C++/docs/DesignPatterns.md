@@ -127,6 +127,8 @@
 
 ### 行为变化
 
+> 在组件的构建过程中，组件行为的变化经常导致组件本身剧烈的变化。“行为变化”模式将组件的行为和组件本身进行解耦，从而支持组件行为的变化，实现两者之间的耦合。
+
 * [Command](../src/DesignPattern/Command.cpp)
 * [Visitor](../src/DesignPattern/Visitor.cpp)
 
