@@ -2,8 +2,6 @@
 
 > 每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的结局方案的核心。这样你就能一次一次的额使用该方案而不必做重复劳动。 ——`Christopher Alex`
 
-  
-
 ## 目标
 
 * 理解**松耦合**设计思想
@@ -68,7 +66,9 @@
 >
 > 现代软件设计的特征是“需求的频繁变化”。设计模式的要点是“**寻找变化点，然后在变化点处应用设计模式**，从而来更好地应对需求的变化”。**什么时候，什么地点应用设计模式比设计模式结构本身更为重要。**  
 >
-> **设计模式最大的作用，就是在变化和稳定之间寻找隔离点。**寻找**稳定点**和**变化点**。
+> **设计模式最大的作用，就是在变化和稳定之间寻找隔离点。**寻找**稳定点**和**变化点**。  
+>
+> 从封装变化的角度来分类设计模式:
 
 ### 组件协作
 
@@ -92,7 +92,7 @@
 * [Factory Method](../src/DesignPattern/FactoryMethod.cpp)
 * [Abstract Factory](../src/DesignPattern/AbstractFactory.cpp)
 * [Prototype](../src/DesignPattern/Prototype.cpp)
-* [Builder](../src/DesignPattern/Builder.cpp)
+* [Builder-lessUse](../src/DesignPattern/Builder.cpp)
 
 ### 对象性能
 
@@ -107,14 +107,14 @@
 
 * [Facade](../src/DesignPattern/Facade.cpp)
 * [Proxy](../src/DesignPattern/Proxy.cpp)
-* [Mediator](../src/DesignPattern/Mediator.cpp)
+* [Mediator-lessUse](../src/DesignPattern/Mediator.cpp)
 * [Adapter](../src/DesignPattern/Adapter.cpp)
 
 ### 状态变化
 
 > 在组件构建过程中，某些对象的状态经常发生变化，如何应对这些变化进行有效的管理？同时又维持高层模块的稳定？“状态变化”模式为这一问题提供了一种解=决方案。
 
-* [Memento](../src/DesignPattern/Memento.cpp)
+* [Memento-lessUse](../src/DesignPattern/Memento.cpp)
 * [State](../src/DesignPattern/State.cpp)
 
 ### 数据结构
@@ -122,19 +122,37 @@
 >常常有一些组件在内部具有特定的数据结构，如果让客户依赖这些特定的数据结构，将极大的破坏组件的复用。这时候，将这些特定的数据结构封装在内部，在外部提供统一的接口，来实现与特定数据结构无关的访问，是一种行之有效的解决方案。
 
 * [Composite](../src/DesignPattern/Composite.cpp)
-* [Iterator](../src/DesignPattern/Iterator.cpp)
-* [Chain of Resposibility](../src/DesignPattern/ChainOfResponsibility.cpp)
+* [Iterator-lessUse](../src/DesignPattern/Iterator.cpp)
+* [Chain of Resposibility-lessUse](../src/DesignPattern/ChainOfResponsibility.cpp)
 
 ### 行为变化
 
 > 在组件的构建过程中，组件行为的变化经常导致组件本身剧烈的变化。“行为变化”模式将组件的行为和组件本身进行解耦，从而支持组件行为的变化，实现两者之间的耦合。
 
-* [Command](../src/DesignPattern/Command.cpp)
-* [Visitor](../src/DesignPattern/Visitor.cpp)
+* [Command-lessUse](../src/DesignPattern/Command.cpp)
+* [Visitor-lessUse](../src/DesignPattern/Visitor.cpp)
 
 ### 领域问题
 
 > 在特定领域中，某些变化虽然频繁，但可以抽象为某种规则。这时候，结合特定领域，将问题抽象为语法规则，从而给出在该领域下的一般性解决方案。
 
-* [Interpreter](../src/DesignPattern/Interpreter.cpp)
+* [Interpreter-lessUse](../src/DesignPattern/Interpreter.cpp)  
+
+
+
+## 总结
+
+* 目标：管理变化，提高复用
+* 手段：分解  && 抽象
+  * 关注抽象类&接口
+  * 理清变化点和稳定点
+  * 审视依赖关系
+  * 要有`Framework`和`Application`的区隔思维
+  * 良好的设计是演化的结果
+
+* 成长之路
+  * 手中无剑，心中无剑
+  * 手中有剑，心中无剑
+  * 手中有剑，心中有剑
+  * 手中无剑，心中有剑
 
