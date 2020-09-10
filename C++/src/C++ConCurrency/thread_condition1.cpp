@@ -20,11 +20,9 @@ using namespace std;
         条件变量std::condition_variable是一个和条件相关的类, 等待一个条件达成。这个类需要和互斥量配合工作。
     需要生成这个类的对象。   
 
-
-        
-
+        notify_one()一次只能通知一个线程
    2. notify_all()  
-
+        一次可以通知多个线程     
 
 
  */
@@ -45,7 +43,8 @@ class Game{
             ulock.unlock();
             std::chrono::milliseconds dura(2000);
             std::this_thread::sleep_for(dura);
-            my_cond.notify_one();  //尝试将wait线程唤醒
+            //my_cond.notify_one();  //尝试将wait线程唤醒
+            my_cond.notify_all();   //尝试唤醒多个线程
             
         }
     }
@@ -90,9 +89,13 @@ int main(void)
 
     Game g;
     std::thread out(&Game::outMsgQueue, &g); 
+    std::thread out2(&Game::outMsgQueue, &g); 
     std::thread in(&Game::inMsgQueue, &g); 
+    std::thread in2(&Game::inMsgQueue, &g); 
 
-    in.join();
     out.join();
+    out2.join();
+    in.join();
+    in2.join();
     return 0;
 }
