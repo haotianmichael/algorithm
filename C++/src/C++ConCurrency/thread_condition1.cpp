@@ -20,6 +20,9 @@ using namespace std;
         条件变量std::condition_variable是一个和条件相关的类, 等待一个条件达成。这个类需要和互斥量配合工作。
     需要生成这个类的对象。   
 
+
+        
+
    2. notify_all()  
 
 
@@ -35,10 +38,13 @@ class Game{
 
     void inMsgQueue() {
         for(int i = 0; i < 10; i++) {
+            cout << "inMsgQueue Start------Insert Msg: "  << i<< endl;
 
             std::unique_lock<std::mutex> ulock(my_mutex_a);
-            cout << "inMsgQueue Start------Insert Msg: "  << i<< endl;
             order.push_back(i);         
+            ulock.unlock();
+            std::chrono::milliseconds dura(2000);
+            std::this_thread::sleep_for(dura);
             my_cond.notify_one();  //尝试将wait线程唤醒
             
         }
@@ -47,7 +53,6 @@ class Game{
     void outMsgQueue() {
 
         while(true) {
-            
             std::unique_lock<std::mutex>  my_lock(my_mutex_a);
 
             /*
@@ -58,18 +63,24 @@ class Game{
                 wait(para)函数
                 相当于para2参数为false——堵塞直到notify_one()被调用 
 
-                wait()被激活后，继续不断尝试重新获取互斥量锁，如果获取不到，则还是wait还是会继续尝试直到
-                拿到互斥锁,如果获取到了，wait()就继续执行
+                wait(para1, para2)被激活后，继续不断尝试重新获取互斥量锁，如果获取不到，则wait还是会继续尝试直到
+                拿到互斥锁,如果获取到了
+                a. 如果是wait(para1, para2)且para2为false, 则wait又对互斥量解锁并堵塞(等待唤醒)
+                b. 如果wait(para1, para2)且para2为true，则wait(para1, para2)返回，流程继续执行(此时互斥锁还是wait手里)
+                c. 如果wait(para1)则wait(para1)返回，流程继续执行，
 
             */
             my_cond.wait(my_lock, [this]{   //lambda表达式就是一个可调用对象(函数)
                     if(!order.empty())  
                         return true;
-                    else
-                        return false;
-                    
+                    return false;
                     });     //条件变量和互斥量配合使用
         } 
+
+        //流程执行到这里，可以保证队列中至少有一条数据，以及线程拥有互斥锁
+        cout << "outMsgQueue Start------Pop Msg: "  << order.front() << endl;
+        order.pop_front();
+        my_mutex_a.unlock();   //可以提前解锁让另一个线程执行
     }
 
 };
