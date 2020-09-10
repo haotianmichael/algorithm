@@ -11,3 +11,4 @@ haotian.i:haotian.cpp
 .PHONY:
 clean:
 	rm -rf haotian.i haotian.S haotian.o haotian
+
