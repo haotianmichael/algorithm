@@ -6,6 +6,8 @@
 
 ### Index
 
+* [[thread.cpp](../src/C++ConCurrency/thread.cpp)]
+
 * [[thread_creat.cpp](../src/C++ConCurrency/thread_creat.cpp)]
 * [[thread_para.cpp](../src/C++ConCurrency/thread_para.cpp)]
 * [[thread_data_sharing.cpp](../src/C++ConCurrency/thread_data_sharing.cpp)]
