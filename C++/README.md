@@ -8,17 +8,23 @@
 
 
 
-#  [3. 高速缓存技术](docs/Cache.md)  
+# [3. C++内存管理](docs/MemoryManagement.md)
 
 
 
-# [4. 并发编程](docs/C++ConCurrency.md)
+# [4. 设计模式](docs/DesignPatterns.md)
 
 
 
-# [5. 设计模式](docs/DesignPatterns.md)
+# [5. 项目构建](docs/MakeBuild.md)
 
 
 
-# [6. 项目构建](docs/MakeBuild.md)
+# [6. 高速缓存技术](docs/Cache.md)
+
+
+
+# [7. 并发编程](docs/C++ConCurrency.md)
+
+
 
