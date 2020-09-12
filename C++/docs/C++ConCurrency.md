@@ -12,7 +12,7 @@
 * [[thread_data_sharing.cpp](../src/C++ConCurrency/thread_data_sharing.cpp)]
 * [[thread_mutex.cpp](../src/C++ConCurrency/thread_mutex.cpp)]
 * [[thread_unique_lock](../src/C++ConCurrency/thread_unique_lock.cpp)]
-* [[thread_mutex](../src/C++ConCurrency/thread_mutex.cpp)]
+* [[thread_singleton](../src/C++ConCurrency/thread_singleton.cpp)]
 * [[thread_condition1](../src/C++ConCurrency/thread_condition1.cpp)]
 * [[thread_condition2](../src/C++ConCurrency/thread_condition2.cpp)]
 * [[thread_async](../src/C++ConCurrency/thread_async.cpp)]
