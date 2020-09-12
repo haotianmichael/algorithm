@@ -25,7 +25,7 @@ using namespace std;
         通过向std::async()传递一个参数，该参数类型是std::launch类型(枚举类型)实现某种功能
             a. std::launch::deferred; 表示线程入口函数被延迟到std::futrue的wait()或者get()函数调用时才执行
             (如果不调用get()和wait()，整个线程甚至不会被创建)(如果调用了get()或者wait()，整个线程入口函数会在主线程中执行，并不创建新的线程) 
-            b. std::launch::async;默认配置
+            b. std::launch::async;(后续会有深入讲解，这部分将的不对)
 
 
     2. std::packaged_task(类模板)
@@ -114,7 +114,7 @@ int main(void)
     //std::future<int> result = std::async(std::launch::deferred, &A::fun, &a, 13);
     //cout << result.get() << endl;;
 
-    //2.3 使用std::launch::async参数；效果和无参数的时候一样——新线程创建
+    //2.3 使用std::launch::async参数；强制创建新线程
     //std::future<int> result = std::async(std::launch::async, &A::fun, &a, 13);
     //cout << result.get() << endl;;
 
