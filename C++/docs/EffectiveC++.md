@@ -2,11 +2,11 @@
 
 ## 参考资料
 
-- C++ reference
+- [C++ Reference](http://www.cplusplus.com/reference/)
 
-- Effective C++
+- [Effective C++](https://book.douban.com/subject/5387403/)
 
-- C++ primer
+- [C++ Primer](https://book.douban.com/subject/25708312/)
 
   
 

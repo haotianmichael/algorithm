@@ -2,7 +2,7 @@
 
 ## 参考资料
 
-* Inside the C++ Object Model
+* [Inside the C++ Object Model](https://book.douban.com/subject/10427315/)
 
 
 

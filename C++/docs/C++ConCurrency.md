@@ -1,8 +1,10 @@
-# C++并发编程
+# C++并发基础
 
 ### 参考资料
 
-* [[C++并发基础](https://www.bilibili.com/video/BV1Yb411L7ak?from=search&seid=9741727401638476396)]
+* [C++并发编程实战](https://book.douban.com/subject/27036085/)
+
+* [[video](https://www.bilibili.com/video/BV1Yb411L7ak?from=search&seid=9741727401638476396)]
 
 ### Index
 
@@ -24,11 +26,11 @@
 
 
 
-
-
-# 多核技术
+# 多核并发
 
 ### 参考资料
 
-* 多核编程的艺术
+* [多核编程的艺术](https://book.douban.com/subject/3901836/)
+
+
 
