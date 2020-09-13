@@ -31,9 +31,13 @@
 | `::operator new`         | `::operator delete`          | C++函数   | 可                           |
 | `allocator<T>::allocate` | `allocator<int>::deallocate` | C++标准库 | 可自由设计并以之搭配任何容器 |
 
-* [范例](../src/MemoryManagement/primitives.cpp)
+* [4种primitives](../src/MemoryManagement/primitives_index.cpp)
+
+* [new/delete](../src/MemoryManagement/pritimitives_new_delete.cpp)
 
 
+
+ 
 
 ### 2. malloc/free
 
