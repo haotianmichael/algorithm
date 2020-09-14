@@ -31,10 +31,14 @@
 | `::operator new`         | `::operator delete`          | C++函数   | 可                           |
 | `allocator<T>::allocate` | `allocator<int>::deallocate` | C++标准库 | 可自由设计并以之搭配任何容器 |
 
-* [](../src/MemoryManagement/0primitives_index.cpp)
-* [new/delete](../src/MemoryManagement/1primitives_new_delete.cpp)
-* [[array_new/delete](../src/MemoryManagement/2primitives_array_new_delete.cpp)]
-* [[replacement_new](../src/MemoryManagement/3primitives_replacement_new.cpp)]
+* [绪论](../src/MemoryManagement/0primitives_index.cpp)
+* [new/delete探究](../src/MemoryManagement/1primitives_new_delete.cpp)
+* [数组new/delete探究](../src/MemoryManagement/2primitives_array_new_delete.cpp)
+* [placement_new探究](../src/MemoryManagement/3primitives_replacement_new.cpp)
+* [operator_new重载](../src/MemoryManagement/4override_operator_new.cpp)
+* [placement_new重载](../src/MemoryManagement/5override_placement_new.cpp)
+
+
 
 
 

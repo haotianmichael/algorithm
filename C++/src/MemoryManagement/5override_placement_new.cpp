@@ -29,6 +29,8 @@ using namespace std;
 
   d. new(p)就是placement new
     被称为定点new, 而功能是并不分配内存  
+
+   
 */
 class Bad{
 };
@@ -92,7 +94,7 @@ class Foo{
 
 int main(void)
 {
-    //Foo start;
+    //Foo start;   //对应new expression
     //Foo* p1 = new Foo;  //对应operator new()+默认构造
     //Foo* p2 = new (&start)Foo;   //对应operator new(size_t, char*)+默认构造
     //Foo* p3 = new(100)Foo;  //对应operator new(size_t, long)+默认构造
