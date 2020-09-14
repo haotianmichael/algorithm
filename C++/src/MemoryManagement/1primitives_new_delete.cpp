@@ -20,7 +20,7 @@ using namespace std;
         a. 调用free    
 
 */
-//重载operator new
+//重载全局operator new(如果在类中重载必须为static)
 void* operator new(size_t size, const std::nothrow_t&) 
     noexcept{  //表示程序不会抛异常
 

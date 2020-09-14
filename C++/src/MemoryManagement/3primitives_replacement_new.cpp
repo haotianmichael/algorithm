@@ -25,7 +25,7 @@ class Complex{
     ~Complex() {}
 };
 
-//重载operator new
+//重载全局operator new
 void* operator new(size_t size, char *buf) {
     return buf;
 }
