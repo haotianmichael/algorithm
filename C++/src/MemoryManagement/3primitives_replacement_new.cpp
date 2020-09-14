@@ -11,6 +11,7 @@ using namespace std;
     placement new (调用operator new)
         允许我们将对象建构在已经allocated的memory上
         没有所谓的placement delete，因为placement new根本不分配内存！
+        不会在分配内存(定点内存)
          
 
  
@@ -25,7 +26,7 @@ class Complex{
     ~Complex() {}
 };
 
-//重载全局operator new
+//重载operator new(本质上就是placement new)
 void* operator new(size_t size, char *buf) {
     return buf;
 }
@@ -38,15 +39,14 @@ class primitives_relpacement_new {
         //调用placement new  的编译器生成的代码  
         void new_override(char *buf) {
             try {
-                 void *mem = operator new(sizeof(Complex), buf); 
+                 void *mem = operator new(sizeof(Complex), buf);   //重载
                  pc = static_cast<Complex*>(mem);
-                 //pc->Complex::Complex(1,2);
+                 //pc->Complex::Complex(1,2); //构造函数
             
             }catch(std::bad_alloc) {
                 cout << "Bad Allocation" << endl;     
             }
         }
-
 };
 
 //演示
