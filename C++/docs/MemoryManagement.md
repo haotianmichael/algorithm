@@ -32,10 +32,9 @@
 | `allocator<T>::allocate` | `allocator<int>::deallocate` | C++标准库 | 可自由设计并以之搭配任何容器 |
 
 * [4种primitives](../src/MemoryManagement/primitives_index.cpp)
-
-* [new/delete](../src/MemoryManagement/pritimitives_new_delete.cpp)
-
-
+* [new/delete](../src/MemoryManagement/primitives_new_delete.cpp)
+* [[array new/delete](../src/MemoryManagement/primitives_array_new_delete.cpp)]
+* 
 
  
 
