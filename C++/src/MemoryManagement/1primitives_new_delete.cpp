@@ -74,6 +74,7 @@ public:
         return nullptr;
     }
 
+    //调用delete的时候，编译器生成的代码
     void delete_override(primitives_new_delete* pc) {
 
         pc->~primitives_new_delete(); //指针可直接调用析构函数
@@ -122,7 +123,7 @@ static void TEST_Ctor_Dtor() {
     pstr->~string();
 
 
-    A* pA = new A(1);
+    A* pA = new A(1);  //直接调用构造函数     
     cout << " id = " << pA->id << endl;
     //pA->A::A(3);  最终证明无法直接调用构造函数
 }

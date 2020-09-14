@@ -56,7 +56,7 @@ static void TEST_ARRAY_NEW_DELETE(int size) {
     Complex* tmp = buf;
     cout << "buf = " << buf << " tmp = " << tmp << endl;
     for(int i = 0 ; i < size; i ++) {
-        new (tmp++)Complex(i);
+        new (tmp++)Complex(i);  //replacemennt new
     }
     cout << "buf = " << buf << "tmp = " << tmp << endl;
     delete []buf;   //次序逆反

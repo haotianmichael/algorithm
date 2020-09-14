@@ -9,7 +9,7 @@ using namespace std;
 
 
 /*
-
+    
    1. Primitives
         不同的OS和编译器有不同的实现 
         malloc/free

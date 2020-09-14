@@ -33,8 +33,10 @@
 
 * [4种primitives](../src/MemoryManagement/primitives_index.cpp)
 * [new/delete](../src/MemoryManagement/primitives_new_delete.cpp)
-* [[array new/delete](../src/MemoryManagement/primitives_array_new_delete.cpp)]
-* 
+* [[array_new/delete](../src/MemoryManagement/primitives_array_new_delete.cpp)]
+* [[replacement_new](../src/MemoryManagement/primitives_replacement_new.cpp)]
+
+
 
  
 
