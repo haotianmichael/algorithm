@@ -7,7 +7,7 @@ using namespace std;
 /*
     类的内存分配器精简版本
         优点: next指针变成Embedded Pointer
-        缺点: 内存池最终delete后并没有还给OS ,并没有调用free
+        缺点: 内存池最终delete后并没有还给OS ,并没有调用free(不是内存泄漏)
 
  
  */
