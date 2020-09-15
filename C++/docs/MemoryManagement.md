@@ -37,6 +37,10 @@
 * [placement_new探究](../src/MemoryManagement/3primitives_replacement_new.cpp)
 * [operator_new重载](../src/MemoryManagement/4override_operator_new.cpp)
 * [placement_new重载](../src/MemoryManagement/5override_placement_new.cpp)
+* [class allocator_1.0对象内存池](./src/MemoryManagement/6pre_class_allocator.cpp)
+* [class allocator 2.0对象内存池](./src/MemoryManagement/6pre_class_allocator_advanced.cpp)
+
+
 
 
 
