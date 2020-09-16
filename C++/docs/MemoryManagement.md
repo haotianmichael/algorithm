@@ -37,33 +37,66 @@
 * [placement_new探究](../src/MemoryManagement/3primitives_replacement_new.cpp)
 * [operator_new重载](../src/MemoryManagement/4override_operator_new.cpp)
 * [placement_new重载](../src/MemoryManagement/5override_placement_new.cpp)
-* [class allocator_1.0对象内存池](../src/MemoryManagement/6pre_class_allocator.cpp)
-* [class allocator 2.0对象内存池](../src/MemoryManagement/6pre_class_allocator_advanced.cpp)
+* [class allocator_1.0对象内存池](../src/MemoryManagement/6per_class_allocator.cpp)
+* [class allocator 2.0对象内存池](../src/MemoryManagement/6per_class_allocator_advanced.cpp)
 * [static allocator 3.0对象内存池](../src/MemoryManagement/7static_allocator.cpp)
 * [macro static allocator 4.0对象内存池](../src/MemoryManagement/8macro_static_allocator.cpp)
 * [new handler/default/delete探究](../src/MemoryManagement/9end.cpp)
 
  
 
-### 2. malloc/free
+### 2. sd::allocator
+
+> **VC6.0**和**BorlandC**这两个著名的编译器标准库内部实现中，每个容器的`std::allocater`都是通过`::operator new/delete`来完成的。  而`GNU C++`中使用的版本是`std::alloc`。也是本章的重点关注对象。
+>
+> 各个编译器标准库版本的容器举例如下:
+
+```C++
+//VC6
+template<class _Ty,
+						class _A= allocator<_Ty>>
+class vector{  
+  //...
+};             
+
+
+//BC5
+template<class T, 
+						class Allocator=allocator<T>>
+class vector{
+  //... 
+};
+
+
+//GNU C++
+template<class T, 
+						class Alloc = alloc>
+class vector{
+  //...  
+};            
+```
 
 
 
 
 
-### 3. sd::allocator
+
+
+### 3. malloc/free
+
+
+
+### 4. Loki::allocator
 
 
 
 
 
-### 4. Other allocators
+### 5. Other allocators
 
  
 
 
-
-### 5. Loki::allocator
 
 
 
