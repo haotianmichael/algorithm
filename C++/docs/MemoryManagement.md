@@ -18,7 +18,12 @@
 
 ## 编译环境
 
-> `macOS Mojave/LLVM 9.0.0`
+> * `macOS Mojave/Clang 9.0.0`
+> * `Ubuntu 18.04/GCC 7.5.0`
+>
+> 主力机器是`MAC`，必要时为了模拟`GNU`环境会使用`Ubuntu`来测试。  
+>
+> **如果没有特别标注`GCC`,则全部使用`Clang`编译并取得和`GNU`平台上逻辑相同的输出。**需要说明的是`LLVM`和`GCC`渐行渐远，为`Clang`自行开发的`lib++`已经取代了`GCC`的标准库`libstd++`，导致不同的编译器最终的结果会有些许不同。
 
 ## index
 
@@ -38,6 +43,8 @@
 * [operator_new重载](../src/MemoryManagement/4override_operator_new.cpp)
 * [placement_new重载](../src/MemoryManagement/5override_placement_new.cpp)
 * [class allocator_1.0对象内存池](../src/MemoryManagement/6per_class_allocator.cpp)
+  * `GCC`: 重载`operator new/delete`间隔为`16Bytes`,不重载的间隔`32Bytes`
+  * `Clang`: 都是`16Bytes`
 * [class allocator 2.0对象内存池](../src/MemoryManagement/6per_class_allocator_advanced.cpp)
 * [static allocator 3.0对象内存池](../src/MemoryManagement/7static_allocator.cpp)
 * [macro static allocator 4.0对象内存池](../src/MemoryManagement/8macro_static_allocator.cpp)
@@ -47,14 +54,14 @@
 
 ### 2. sd::allocator
 
-> **VC6.0**和**BorlandC**这两个著名的编译器标准库内部实现中，每个容器的`std::allocater`都是通过`::operator new/delete`来完成的。  而`GNU C++`中使用的版本是`std::alloc`。也是本章的重点关注对象。
+> **VC6.0**和**BorlandC5.0**这两个著名的编译器标准库内部实现中，每个容器的`std::allocater`都是通过`::operator new/delete`来完成的。而`GNU2.9 C++`中使用的版本是`std::alloc`，经过更新迭代在`GNU4.9`中改名为`__gnu_cxx::__pool_alloc`——也是本章的重点关注对象。
 >
 > 各个编译器标准库版本的容器举例如下:
 
 ```C++
 //VC6
 template<class _Ty,
-						class _A= allocator<_Ty>>
+class _A= allocator<_Ty>>
 class vector{  
   //...
 };             
@@ -62,7 +69,7 @@ class vector{
 
 //BC5
 template<class T, 
-						class Allocator=allocator<T>>
+	class Allocator=allocator<T>>
 class vector{
   //... 
 };
@@ -70,11 +77,15 @@ class vector{
 
 //GNU C++
 template<class T, 
-						class Alloc = alloc>
+	class Alloc = alloc>
 class vector{
   //...  
 };            
 ```
+
+* [GNU2.9-4.9对cookie的优化](10pool_alloc.cpp)
+  * `GCC2.9-std::allocator`: 连续申请三个`8Bytes-double`的元素，地址间隔`32Bytes`
+  * `GCC4.9-__gnu_cxx::__pool_alloc`:连续申请三个`8Bytes-double`的元素，地址间隔`16Bytes`
 
 
 
