@@ -8,7 +8,7 @@
 
 
 
-# [3. C++内存管理](docs/MemoryManagement.md)
+# [3. 内存管理](docs/MemoryManagement.md)
 
 
 
