@@ -42,6 +42,7 @@ class my_allocator{
 };
 
 void* my_allocator::allocate(size_t size) {
+    cout << "allocating..." << endl;
 
     obj* p;
     if(!freeStore) {
@@ -88,14 +89,14 @@ IMPLEMENT_POOL_ALLOC(Goo);
 
 int main(void)
 {
-    Foo* p[100];
+    Foo* p[10];
     cout << "sizeof(Foo)" << sizeof(Foo) << endl;
-    for(int i =0 ; i < 10; i ++) {
+    for(int i =0 ; i < 5; i ++) {
         p[i] = new Foo(static_cast<long>(i)); 
         cout << p[i] << endl; 
     }
 
-    for(int i = 0; i < 10; i ++) {
+    for(int i = 0; i < 5; i ++) {
         delete p[i]; 
     }
 

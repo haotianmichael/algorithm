@@ -14,7 +14,7 @@
 * jemalloc
 * tcmalloc
 
-
+**向侯捷老师致敬！**
 
 ## 编译环境
 
@@ -41,13 +41,7 @@
 * [class allocator 2.0对象内存池](../src/MemoryManagement/6pre_class_allocator_advanced.cpp)
 * [static allocator 3.0对象内存池](../src/MemoryManagement/7static_allocator.cpp)
 * [macro static allocator 4.0对象内存池](../src/MemoryManagement/8macro_static_allocator.cpp)
-* [new handler探究](.../src/MemoryManagement/9new_handler.cpp)
-
-
-
-
-
-
+* [new handler/default/delete探究](../src/MemoryManagement/9end.cpp)
 
  
 
