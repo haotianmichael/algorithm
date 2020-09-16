@@ -48,7 +48,7 @@ private:
     int i;
 };
 Screen_override* Screen_override::freeStore = 0;  //最开始的头结点
-const int Screen_override::screenChunk = 24;
+const int Screen_override::screenChunk = 5;
 
 /*
     @operator new
