@@ -183,7 +183,7 @@ class __default_alloc_template{
         
             my_free_list = free_list + FREELIST_INDEX(size);  //定位
             result = *my_free_list;
-            if(result == 0) {   //list为空
+            if(result == 0) {   //list为空  第一次或者如果备战池都用光了，则result = nullptr
                 void* t = refill(ROUND_UP(size));   //充值
                 return t;
             }
@@ -224,7 +224,7 @@ template<bool threads, int inst>
 void* __default_alloc_template<threads, inst>::refill(size_t size) { //size已调整为8的倍数
 
     int nobjs = 20;  //预设取20个区块(不一定)
-    char *chunk  = chunk_alloc(size, nobjs);   //获取一大块内存
+    char *chunk  = chunk_alloc(size, nobjs);   //获取一大块内存  不一定是20个，如果战备池为零，则重新分配20个chunk,而如果备战池里有内存资源则可能直接分配少于20个chunk
     obj* volatile* my_free_list;
     obj* result;
     obj* current_obj;
@@ -266,7 +266,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int& nob
     size_t total_bytes = size * nobjs;
     size_t bytees_left = end_free - start_free;
     
-    if(bytees_left >= total_bytes) {  //pool空间足以满足10块需求
+    if(bytees_left >= total_bytes) {  //pool空间足以满足需求
 
         result = start_free;
         start_free += total_bytes;
@@ -282,6 +282,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int& nob
 
         //打算从system free-store上去这么多来充值
         size_t bytes_to_get = 2 * total_bytes + ROUND_UP(heap_size >> 4);
+        //处理碎片(将其挂到相应的chunk指针端口)
         if(bytes_to_get > 0) {
             obj* volatile *my_free_list =   //重新定位碎片的指针
                free_list + FREELIST_INDEX(bytees_left); 
@@ -289,8 +290,9 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int& nob
             *my_free_list = (obj*)start_free; 
         }
 
-        start_free = (char*)malloc(bytes_to_get); //从system free-store中取
-        if(0 == start_free) {
+        //从system free-store中取
+        start_free = (char*)malloc(bytes_to_get); 
+        if(0 == start_free) {  //如果当前的chunk分配失败，则向上继续找相邻的chunk继续分配
             obj* volatile *my_free_list, *p;
             for(int i = size; i <= __MAX_BYTES; i += __ALLGN) {
                 my_free_list = free_list + FREELIST_INDEX(i); 
@@ -309,7 +311,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int& nob
         //至此，表示已经从system free-store成功取得很多memory
         heap_size += bytes_to_get;
         end_free = start_free + bytes_to_get;
-        return (chunk_alloc(size, nobjs));   //递归试一次
+        return (chunk_alloc(size, nobjs));   //战备池有内存了，所以递归重新处理分配逻辑
     }
 }
 

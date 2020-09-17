@@ -1,8 +1,16 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <list>
+
 
 using namespace std;
+/*
+    重点理解：
+    备战池，内存对齐， 
+ 
+ 
+*/
 /*
     一级分配器
 */
@@ -81,7 +89,7 @@ void* alloc_default::allocate(size_t size) {
     my_free_list = free_list + FREELIST_INDEX(size);  
     result = *my_free_list;
 
-    //如果最合适的指针端口已经没有内存了，那就需要向上找指针端口进行分配(80-88-96...)
+    //如果链表为空  如果第一次或者List被用光了，则result为空
     if(!result) {
         void* t = refill(ROUND_UP(size)); 
         return t;
@@ -120,13 +128,13 @@ size_t alloc_default::ROUND_UP(size_t bytes) {
 
 /********************核心函数
     @功能： 
- 
+        充值 
 */
 void* alloc_default::refill(size_t size) {
 
     int nobjs = 20;
-    char* chunk = chunk_alloc(size, nobjs);
-    if(1 == nobjs) return(chunk); 
+    char* chunk = chunk_alloc(size, nobjs);   // 不一定是20个  如果备战池为零，则重新分配20个chunk，而备战池有内存资源，则不一定分配20个
+    if(1 == nobjs) return(chunk);   //如果分配了一个，则直接返回
 
     //定位
     obj** my_free_list = free_list + FREELIST_INDEX(size);
@@ -173,20 +181,23 @@ char* alloc_default::chunk_alloc(size_t size, int& nobjs) {
     }else {    //pool空间不满足(碎片)
             /*
              
-                运行逻辑:
+               @功能
                 按照申请的size，如果分配器的chunk都小于等于size;诉求第一级分配器即malloc
-                然后确定需要挂载的chunk区块,如果区块有空闲的内存则直接分配，没有的话调用
+                然后确定需要挂载的chunk区块,如果战备池有空闲的内存则直接分配，没有的话调用
                 refill()在周边区块上补充
+                而chunk_alloc()函数是备战池内存分配的核心逻辑
             */                
         size_t bytes_to_get = 2 * total_bytes + ROUND_UP(heap_size >> 4);
+        //处理碎片(将其挂到相应的chunk指针端口)
         if(bytes_to_get > 0) {
             obj** my_free_list = free_list + FREELIST_INDEX(bytes_left); 
              ((obj*)start_free)->next = *my_free_list; 
              *my_free_list = (obj*)start_free;
         }
 
+        //开始从system-heap上分配内存
         start_free = (char*)malloc(bytes_to_get);
-        if(0 == start_free) {  //如果没有分配成成功
+        if(0 == start_free) {  //如果当前chunk没有分配成功，则向上继续找chunk分配
             obj** my_free_list, *p;
             for(int i = size; i <= _max; i += _align) {
                 my_free_list = free_list + FREELIST_INDEX(i);    
@@ -204,7 +215,7 @@ char* alloc_default::chunk_alloc(size_t size, int& nobjs) {
         
         heap_size += bytes_to_get;
         end_free = start_free + bytes_to_get;
-        return (chunk_alloc(size, nobjs));
+        return (chunk_alloc(size, nobjs));  //备战池有内存了，所以递归重新处理分配逻辑
 
     }
 }
@@ -213,5 +224,10 @@ typedef alloc_default alloc;
 int main(void)
 {
     
+    
+    list<int, alloc> c;
+    c.push_back(9);
+
+
     return 0;
 }
