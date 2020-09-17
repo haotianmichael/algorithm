@@ -248,7 +248,6 @@ void* __default_alloc_template<threads, inst>::refill(size_t size) { //size已�
             break;
         }else {
             current_obj->free_list_link = next_obj; 
-            break;
         }
     }
     
@@ -287,7 +286,7 @@ char* __default_alloc_template<threads, inst>::chunk_alloc(size_t size, int& nob
             obj* volatile *my_free_list =   //重新定位碎片的指针
                free_list + FREELIST_INDEX(bytees_left); 
             ((obj*)start_free)->free_list_link = *my_free_list;
-            my_free_list = (obj*)start_free; 
+            *my_free_list = (obj*)start_free; 
         }
 
         start_free = (char*)malloc(bytes_to_get); //从system free-store中取

@@ -102,6 +102,12 @@ class vector{
 
 * [GNU2.9的std::alloc源码实现](../src/MemoryManagement/11std::alloc.cpp)
 
+> 如果只是为了理解内存分配，其实很多代码都没有用。
+
+* [GNU2.9的std::alloc源码实现简易版](../src/MemoryManagement/11simplified_ver_std::alloc.cpp)
+
+
+
 
 
 
