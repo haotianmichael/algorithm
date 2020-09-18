@@ -106,13 +106,62 @@ class vector{
 
 * [GNU2.9的std::alloc源码实现简易版](../src/MemoryManagement/11simplified_ver_std::alloc.cpp)
 * [__pool_alloc新型的分配器测试程序](../src/MemoryManagement/12alloc_test.cpp)
+  
   * `GCC`： 测试样例`1000`个元素。
     * 标准分配器: 分配`1000`次，得到`24000`个字节
-    * 新型分配器: 分配`16`次，得到`25224`个字节
-
+  * 新型分配器: 分配`16`次，得到`25224`个字节
+  
   
 
 ### 3. malloc/free
+
+> `Windows`下`VC6.0`中`C++`程序的流程(简化版)——伪码中的`API`都是`Windows`平台下的。**执行流程是前一个函数调用后一个函数。**
+>
+> * `KERNEL32! bff89f5b()...`   内核函数
+>
+> * `mainCRTStartup()`   由`C Runtime Library`  初始化
+>
+>   * `_heap_init()`     分配了16个`HEADER`
+>
+>     [_heap_init部分代码](../src/MemoryManagement/13heap_init.cpp)
+>
+>     * `__sbh_heap_init()`      
+>
+>       [__sbh_heap_init部分代码](../src/MemoryManagement/13sbh_heap_init.cpp)
+>
+>   * `_ioinit()`  第一次尝试分配内存
+>
+>     [_ioinit部分代码](../src/MemoryManagement/13ioinit.cpp)
+>
+>     * `_heap_alloc_dbg()`
+>
+>       [_heap_alloc_dbg部分代码](../src/MemoryManagement/13heap_alloc_dbg.cpp)
+>
+>     * `_heap_alloc_base()`
+>
+>       [_heap_alloc_base部分代码](../src/MemoryManagement/13heap_alloc_base.cpp)
+>
+>     * `_sbh_alloc_block()`
+>
+>       [_sbh_alloc_block部分代码](../src/MemoryManagement/13sbh_alloc_block.cpp)
+>
+>       
+>
+>       
+>
+>     
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
