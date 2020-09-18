@@ -7,9 +7,7 @@
 using namespace std;
 /*
     重点理解：
-    备战池，内存对齐， 
- 
- 
+    备战池，内存对齐，内存碎片
 */
 /*
     一级分配器
@@ -159,7 +157,14 @@ void* alloc_default::refill(size_t size) {
     return (result);
 }
 
-
+ /*
+             
+    @功能
+        按照申请的size，如果分配器的chunk都小于等于size;诉求第一级分配器即malloc
+        然后确定需要挂载的chunk区块,如果战备池有空闲的内存则直接分配，没有的话调用
+        refill()在周边区块上补充
+        而chunk_alloc()函数是备战池内存分配的核心逻辑
+*/     
 char* alloc_default::chunk_alloc(size_t size, int& nobjs) {
 
     size_t total_bytes = size * nobjs;
@@ -179,14 +184,7 @@ char* alloc_default::chunk_alloc(size_t size, int& nobjs) {
         start_free +=  total_bytes;
         return (result); 
     }else {    //pool空间不满足(碎片)
-            /*
-             
-               @功能
-                按照申请的size，如果分配器的chunk都小于等于size;诉求第一级分配器即malloc
-                然后确定需要挂载的chunk区块,如果战备池有空闲的内存则直接分配，没有的话调用
-                refill()在周边区块上补充
-                而chunk_alloc()函数是备战池内存分配的核心逻辑
-            */                
+               
         size_t bytes_to_get = 2 * total_bytes + ROUND_UP(heap_size >> 4);
         //处理碎片(将其挂到相应的chunk指针端口)
         if(bytes_to_get > 0) {
@@ -221,12 +219,25 @@ char* alloc_default::chunk_alloc(size_t size, int& nobjs) {
 }
 typedef alloc_default alloc;
 
+
+
+
+class Foo{
+    public:
+        int m;
+};
 int main(void)
 {
     
-    
-    list<int, alloc> c;
-    c.push_back(9);
+    //Foo(1)是stack memory, 而当需要push_back的时候，alloc需要准备一块内存
+    list<Foo, alloc> c;    //不带cookie
+    c.push_back(Foo(1));     //push_back 需要拷贝构造
+
+
+    //p是heap memory, 容器向分配器发出需求，alloc为其分配内存
+    Foo* p = new Foo(2);   //带cookie
+    c.push_back(*p); //push_back 需要拷贝构造
+    delete p;
 
 
     return 0;
