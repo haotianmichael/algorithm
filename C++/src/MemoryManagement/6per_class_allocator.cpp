@@ -10,7 +10,8 @@ using namespace std;
     b. 降低空间浪费率
     通过Screen和Screen_new两个类来测试重载operator new对cookie的影响
 
-    结论: 两个版本都不带cookie,大小和间隔都是16
+    结论: Clang两个版本都不带cookie,大小和间隔都是16
+          GCC 分配区别明显
 
     注意: 在写程序的时候，一定要注意virtual机制带来的内存浪费
 
