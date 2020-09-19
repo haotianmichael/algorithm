@@ -2,7 +2,9 @@
 
 ## 参考资料
 
-#### **[vedio](https://www.bilibili.com/video/BV1Kb411B7N8?from=search&seid=2095136970590855889)**
+**向侯捷老师致敬！**
+
+**[vedio](https://www.bilibili.com/video/BV1Kb411B7N8?from=search&seid=2095136970590855889)**
 
 #### **Libraries:**
 
@@ -13,8 +15,6 @@
 * VC malloc/free
 * jemalloc
 * tcmalloc
-
-**向侯捷老师致敬！**
 
 ## 编译环境
 
@@ -121,47 +121,83 @@ class vector{
 >
 > * `mainCRTStartup()`   由`C Runtime Library`  初始化
 >
->   * `_heap_init()`     分配了16个`HEADER`
+>   * `_heap_init()`     初始化
 >
 >     [_heap_init部分代码](../src/MemoryManagement/13heap_init.cpp)
 >
->     * `__sbh_heap_init()`      
+>     * `__sbh_heap_init()`       最开始有16个`HEADER`供分配
 >
 >       [__sbh_heap_init部分代码](../src/MemoryManagement/13sbh_heap_init.cpp)
 >
->   * `_ioinit()`  第一次尝试分配内存
+>   * `_ioinit()`  第一次尝试申请内存共100h
 >
 >     [_ioinit部分代码](../src/MemoryManagement/13ioinit.cpp)
 >
->     * `_heap_alloc_dbg()`
+>     * `_heap_alloc_dbg()`     调试模式下
 >
 >       [_heap_alloc_dbg部分代码](../src/MemoryManagement/13heap_alloc_dbg.cpp)
 >
->     * `_heap_alloc_base()`
+>     * `_heap_alloc_base()`  确定小于1024采用SBH小区块分配器
 >
 >       [_heap_alloc_base部分代码](../src/MemoryManagement/13heap_alloc_base.cpp)
 >
->     * `_sbh_alloc_block()`
+>     * `_sbh_alloc_block()`   计算好总共需要分配的内存字节    130h
 >
 >       [_sbh_alloc_block部分代码](../src/MemoryManagement/13sbh_alloc_block.cpp)
 >
->       
+>     目前为止总结一下：最初的内存是`heap_init`从操作系统中分配了16个`HEADER`。程序第一次申请内存分配是`ioinit()`共申请了`100h`字节，加上调试器模式下结构体大小，以及两个`cookie`：  
 >
->       
+>     `0x100 + 0x24 + 4 * 2 = 0x12C ——> 0x130(aligned)——>0x131(使用最后一位标记分配)`  
+>
+>     **但其实只是计算，系统并没有实际开始分配内存。**
+>
+>     * `heap_alloc_new_region()`
+>
+>     内存分配原理： 16个`Header`(有一个头指针为其定位)。每一个`Header`负责管理`1MB`——真正分配内存调用`Windows API——VirtualAlloc()`。每一个`Header`有两根指针——一根指向分配好的内存，另一根指向其管理中心——`region`。
+>
+>     ```c++
+>     //region结构
+>     typedef struct tagRegion{
+>       int indGroupUse;    //整数   
+>       char cntRegionSize[64];    //64个character
+>        //unsigned int 32位    高位和低位合并之后——>32组数据，每组64bits   
+>       BITVEC bitvGroupHi[32]; 
+>       BITVEC bitvGroupLo[32];
+>       //32个group  每一个group管理32KB
+>       struct tagGroup grpHeadList[32];
+>     }REGION,&PREGION;
+>     
+>     //group结构
+>     typedef struct tagGroup{
+>       int cntEntries;
+>     	// 64对双向链表  
+>       struct tagListHead ListHead[64];   
+>     }GROUP, *PGROUP;
+>     
+>     //双向链表
+>     typedef struct tagListHead{
+>       struct tagEntry* pEntryNext;
+>       struct tagEntry* pEntryPrev;
+>     }LISTHEAD, *PLISTHEAD;
+>     
+>     typedef struct tagEntry{
+>       int sizeFront;       //记录4080Bytes
+>       struct tagEntry* pEntryNext;
+>       struct tagEntry* pEntryPrev;  
+>     }ENTRY *PENTRY;
+>     ```
+>
+>     * `heap_alloc_new_group()`
+>
+>     `1MB`分为32个单元，每单元`32KB`的大小。然后每一个单元又分为8个`page`，每部分`4KB`——对应操作系统的`page`。而管理中心`region`一共有32个`group`,**所以每一个`group`管理8x4KB的内存资源。**
+>
+>      从上面的代码中可以知道:一个`group`共有64个双向指针，**这些指针所管理的内存按照16的倍数递增(即1st—16字节，2nd—32字节...64th—>=1024字节)。**因此一个`group`实际上可以管理的大小是`16*(1 + 2 + ...+ 64) = 32KB + 512Bytes`。符合最开始的设定。
+>
+>     根据`ioinit`申请的内存大小`110h`，加上`debug`模块和`cookie`，再进行16字节的对齐。最后需要向每一个`page`申请`130h`字节的内存。最后还剩下`ec0h = ff0h - 130h`。那一个`page`便会被切割成为两部分——一部分是分配的`130h`内存，一部分是剩下的`ec0h`。双方的结构都是`heap_alloc_dbg::struce _CrtMemBlockHeader`并且都需要更新`cookie`。
+>
+>     至此，`malloc`函数的整个分配过程基本结束了。侯捷老师的PPT和课程中的讲解非常精彩，建议反复听知道能够自行画出内存图。
 >
 >     
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
