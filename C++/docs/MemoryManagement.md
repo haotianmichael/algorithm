@@ -8,13 +8,14 @@
 
 #### **Libraries:**
 
-* STL Allocators
-* MFC CPlex+CFixedAlloc
-* Boost.Pool
-* Loki SmallObjAllocator
-* VC malloc/free
-* jemalloc
-* tcmalloc
+* `STL Allocators`
+* `MFC CPlex+CFixedAlloc`
+* `Boost.Pool`
+* `Loki SmallObjAllocator`
+* `VC malloc/free`
+* `jemalloc`
+* `tcmalloc`
+* `ptmalloc  `
 
 ## 编译环境
 
@@ -230,14 +231,60 @@ class vector{
 
 ### 5. Loki::allocator
 
+> `Loki Library`中的分配器。  省略...  
+
+
+
+### 6. Other issues
+
+> 主要介绍`GNU-C`下其他的7个分配器。
+>
+> 分配器负责为标准库的容器分配内存。总的来说有两种方式:直接分配(调用`malloc`)和**智能型**。
+>
+> 所谓**智能型**分配的方式，就是将所分配得到的内存加以缓存(Cache)——即内存池。**这种方式不仅可以适当的提升分配的速度，而且降低了`cookie`的空间浪费。** 相关的分配器比如：
+>
+> * `__gnu_cxx::bitmap_allocator`    重点
+> * `__gnu_xx::pool_allocator`  第二讲重点——缺点是分配的内存不回收给OS
+> * `__gnu_cxx::__mt_alloc `
+>
+> 另外还有四种分配器:
+>
+> * `__gnu_cxx::new_allocator`     调用`::operator new/delete`
+> * `__gnu_cxx::malloc_allocator`    直接调用`malloc/free`
+>
+> * `__gnu_cxx::array_allocator`    [部分源代码](../src/MemoryManagement/14array_allocator.cpp)
+> * `__gnu_cxx::debug_allocator`      [部分源代码](../src/MemoryManagement/14debug_allocator.cpp)
+
+##### bitmap_allocator
+
+> `blocks`,`super-blocks`,`bitmap`,`mini-vector`
+>
+> **分配**：
+>
+> 容器分配一个`blocks`，每个区块8个字节。加上`bitmap`以及一些区块叫`super-blocks`。假设有64个`blocks`，则需要的`bitmap`是64`bits`——两个`unsigned int`。`bitmap`每一个`bit`为1表示还未分配。`use-count`表示用掉的区块计数(整数)。`size-super-block `表示`super-block`的大小——`64 * 8(block size) +4(use-count) + 4*2(bitmap) = 524Bytes。`
+>
+> `__mini_vector`: 自行实现的小型结构管理`bitmap`——成倍增长
+>
+> * `_M_start`,  指向头结点
+> * `_M_finish`,  指向尾节点的后一个结点
+> * `_M_end_of_storage `
+>
+> `super-block`是基本单元。当启动第二个`super-block`的时候，首先**区块数量**会加倍——从64`Bytes`变成128`Bytes`。接着`bitmap`会变成4个`unsigned int`。这时候`size-super-block`为`128 * 8(block size) + 4 * 4(bitmap) + 4(use-count)= 1044bytes `。由于需要有两个控制中心——所以`__mini_vector`也需要增加，因为是类`vector`所以有时成倍增长。
+>
+> **释放：**
+>
+> 会再增加一个`__mini_vector`，最多64个`entry`，如果超过了区块就会被还给操作系统。
+
+* [ 其他分配器测试程序](../src/MemoryManagement/14test_allocator.cpp)
+  * `GCC` 
 
 
 
 
-### 6. Other allocators
 
  
 
+ 
 
 
 
