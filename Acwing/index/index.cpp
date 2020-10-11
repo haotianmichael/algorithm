@@ -37,13 +37,14 @@ void mergeSort(int a[], int l, int r) {
 
    int k = 0;
     while(i <= mid && j <= r) {
-        if(a[i] < a[j])  tmp[k++] = a[i++];
+        if(a[i] <= a[j])  tmp[k++] = a[i++];
         else tmp[k++] = a[j++];
     }
 
-
     while(i <= mid) tmp[k++] = a[i++];
     while(j <= r) tmp[k++] = a[j++];
+
+    cout << "l = " << l << endl;
 
     for(int i = l, j = 0; i <= r; i ++, j ++) a[i] = tmp[j];
 }
