@@ -82,7 +82,6 @@ testOneD_main(void) {
 }
 
 
-
 void insert_Matrix(int x1, int y1, int x2, int y2, int c) {
 
     s[x1][y1] += c;
