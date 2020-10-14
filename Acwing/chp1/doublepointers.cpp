@@ -6,14 +6,11 @@ using namespace std;
 
 //去重算法
 void duplicate(vector<int> &q) {
-    int j = 0;
     for(unsigned int i = 0;  i < q.size(); i ++) {
         if(!i || q[i] != q[i-1]) 
-            q[j++] = q[i];
+            cout << q[i];
     }
-
-    for(auto item : q) 
-        cout << item; 
+    puts("");
 
     return;
 }
@@ -24,7 +21,7 @@ void printfword(string s) {
 
     for(unsigned int i = 0; i < s.size(); i ++) {
         unsigned int  j = i;
-        while(j < i && s[j] != ' ') j ++;
+        while(j < s.size() && s[j] != ' ') j ++;
         for(unsigned int k = 0; k < j; k ++) cout << s[k]; 
         cout << endl; 
         i = j;
@@ -61,13 +58,13 @@ void  subsequence(vector<int> &q) {
 
     const int N = 1e6 + 10;
     int s[N];
-    int n;
-    cin >> n;
-    for(int i = 0; i < n; i ++) {
-        int x;
-        cin >> x;
-        q.push_back(x); 
-    }
+    /*int n;*/
+    //cin >> n;
+    //for(int i = 0; i < n; i ++) {
+        //int x;
+        //cin >> x;
+        //q.push_back(x); 
+    //}
 
     int res = 0;
     for(unsigned int i = 0, j = 0; i < q.size(); i ++) {
@@ -88,12 +85,18 @@ main(void) {
     string s;
 
     //cin >> q
-    duplicate(q);     
+    //duplicate(q);     
 
     //cin >> s
-    printfword(s);
+    //printfword(s);
 
-    //cin >> q
+    q.push_back(1);
+    q.push_back(2);
+    q.push_back(3);
+    q.push_back(3);
+    q.push_back(4);
+    q.push_back(5);
+    q.push_back(6);
     subsequence(q);
 
     return 0;
