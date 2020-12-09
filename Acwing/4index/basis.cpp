@@ -69,6 +69,31 @@ string reverse(string s){
     return res;
 }
 
+/*==============最大不重复子序列
+ 
+    1. 掌握用数组判断重复
+    2. 理解该题的本质在于单调 
+*/
+void masSquence() {
+    const int N = 100010; 
+    int n, a[N], s[N];
+    int res = 0;
+    cin >> n;
+    for(int i  = 0; i < n; i ++) cin >> a[i]; 
+    
+    for(int i = 0, j = 0; i < n;  ++i) {
+        s[a[i]] ++; 
+        while(s[a[i]] > 1) {
+            s[a[j]] --; 
+            j++; 
+        } 
+        res = max(res, i - j + 1); 
+    } 
+
+    cout << res << endl;
+}
+
+
 
 /*=============位运算*/
 void binary() {
