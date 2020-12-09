@@ -200,6 +200,30 @@ void preSum() {
     }
 }
 
+void insert(int s[], int l, int r, int c) {
+    s[l] += c;
+    s[r+1] -= c;
+}
+void difference() {
+    int s[N];
+    int n;
+    cin >> n;
+    for(int i  = 1; i <= n; i ++)  cin >> a[i];
+    for(int i = 1; i <= n; i ++) insert(s, i, i, a[i]);    //构造差分数组
+
+    int m, l, r, c;
+    cin >> m;
+    while(m--) {
+        cin >> l >> r >> c; 
+        insert(s, l, r, c);
+    }
+
+    //构造差分数组的前缀和
+    for(int i = 1; i <= n; i ++) s[i] += s[i-1]; 
+    for(int i = 1; i <= n; i ++) cout << s[i] << ' '; 
+    puts("");
+}
+
 void preMatrix() {
     int ma[M][M];
     int ms[M][M];    
@@ -215,19 +239,61 @@ void preMatrix() {
     //构造前缀和矩阵
     for(int i = 1; i <= n; i++)
        for(int j = 1; j <= m; j ++)  
-           s[i][j] = s[]
-            
+           ms[i][j] = ma[i][j] + ms[i-1][j] + ms[i][j-1] - ms[i-1][j-1]; 
 
+    int q;
+    cin  >> q;
+    while(q --) {
+        int x1, y1, x2, y2; 
+        cin >> x1 >> y1 >> x2 >> y2; 
+        cout << ms[x2][y2] - ms[x2][y1-1]-ms[x1-1][y2]+ms[x1-1][y1-1];
+    }
+
+    return;
 }
 
-void difference() {
-
-
-
+int ms[M][M];
+void insert(int x1, int y1, int x2, int y2, int c) {
+    
+    ms[x1][y1] += c;
+    ms[x2+1][y1] -= c;
+    ms[x1][y2+1] -= c;
+    ms[x2+1][y2+1] += c;
 }
-
-
 void differenceMatrix() {
+
+    int ma[M][M];
+
+    int n, m;
+    cin >> n >> m;
+    for(int i = 1; i <= n; i ++) 
+       for(int j = 1; j <= m; j ++)  
+           cin >> ma[i][j];
+
+    //构造差分数组
+    for(int i = 1; i <= n; i ++)  
+        for(int j = 1; j <= m; j ++) 
+            insert(i, j, i, j, ma[i][j]);
+
+
+    int q;
+    cin >> q;
+    while(q --) {
+        int x1, y1, x2, y2, c;
+        cin >> x1 >> y1 >> x2 >> y2 >> c;
+        insert(x1, y1, x2, y2, c); 
+    }
+
+    //构造差分数组的前缀和
+    for(int i = 1; i <= n; i ++)  
+        for(int j = 1; j <= m; j ++) 
+            ms[i][j] = ms[i-1][j] + ms[i][j-1] - ms[i-1][j-1];
+    
+    for(int i = 1; i <= n; i ++) 
+        for(int j = 1; j <= m; j ++){
+            cout << ms[i][j]  << ' ';
+        } 
+        cout << endl; 
 
 }
 
