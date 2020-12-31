@@ -12,7 +12,7 @@ using namespace std;
     * 单调栈
     * 单调队列
     * KMP
- */
+*/
 
 //单链表
 const int N = 100010;
@@ -119,6 +119,7 @@ int query(char str[]) {
         拉链法
     字符串哈希方式
 */
+int q[N][26];
 
 
 
@@ -134,7 +135,5 @@ int query(char str[]) {
 
 int main(void)
 {
-    
-
     return 0;
 }
